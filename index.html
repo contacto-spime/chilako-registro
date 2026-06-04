@@ -214,6 +214,8 @@
   }
   .field input:focus { border-color: var(--green); }
   .field input.error { border-color: var(--red); }
+  .field input[type="date"] { color: var(--text); }
+  .field input[type="date"]:not(:valid) { color: var(--text-muted); }
   .field-error {
     font-size: 11px;
     color: var(--red);
@@ -408,6 +410,11 @@
     <input type="email" id="fieldEmail" placeholder="tucorreo@email.com" autocomplete="email">
   </div>
 
+  <div class="field">
+    <label>Fecha de nacimiento <span style="color:var(--text-muted);font-weight:400">(opcional)</span></label>
+    <input type="date" id="fieldBirthDate" autocomplete="bday">
+  </div>
+
   <button class="submit-btn" id="submitBtn" onclick="registerMember()">
     Crear mi tarjeta de lealtad 🌮
   </button>
@@ -435,6 +442,7 @@
     const name = document.getElementById('fieldName').value.trim();
     const phone = document.getElementById('fieldPhone').value.trim();
     const email = document.getElementById('fieldEmail').value.trim();
+    const birthDate = document.getElementById('fieldBirthDate').value || null;
 
     // Validate
     let valid = true;
@@ -465,7 +473,7 @@
       const res = await fetch(`${API}/members`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, email: email || `${phone}@chilako.mx` })
+        body: JSON.stringify({ name, phone, email: email || `${phone}@chilako.mx`, birthDate })
       });
       const data = await res.json();
 
