@@ -482,6 +482,15 @@
         document.getElementById('successSub').textContent = `¡Hola ${name.split(' ')[0]}! Tu tarjeta está lista. Agrégala a Google Wallet para acumular sellos en cada visita.`;
         document.getElementById('formContainer').style.display = 'none';
         document.getElementById('successState').classList.add('show');
+      } else if (data.error === 'phone_already_registered') {
+        // Phone already registered — show friendly error on the field
+        btn.disabled = false;
+        btn.innerHTML = 'Crear mi tarjeta de lealtad 🌮';
+        const errPhone = document.getElementById('errPhone');
+        errPhone.textContent = `Este número ya está registrado en el Club Chilako (${data.member?.name}). Usa un número diferente o pídele al cajero que busque tu tarjeta.`;
+        errPhone.classList.add('show');
+        document.getElementById('fieldPhone').classList.add('error');
+        document.getElementById('fieldPhone').focus();
       } else {
         btn.disabled = false;
         btn.innerHTML = 'Crear mi tarjeta de lealtad 🌮';
